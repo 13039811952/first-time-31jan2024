@@ -4,7 +4,7 @@ import time
 import requests
 
 headers={
-    "Authorization" : "Token 787f515cb0624813736c11e7fefec66473394f02",
+    "Authorization" : "Token r8_Hcw5iOdxx7u9iQsMp6lzNg2tvRsUD7o4cTDww",
     "Content-Type" : "application/json"
 }
 
@@ -21,7 +21,7 @@ def index():
             }
         )
         r = requests.post('https://api.replicate.com/v1/predictions',data=data,headers=headers)
-        time.sleep(10)
+        time.sleep(15)
         r = r.json()["urls"]["get"]
         r = requests.post(r,headers=headers).json()["output"]
         return(render_template("index.html",r=r[0]))
@@ -30,51 +30,3 @@ def index():
 
 if __name__ == "__main__":
     app.run()
-
- import json
-
-import time
-
-import requests
-
- 
-
-q = input("Enter your picture request : ")
-
-headers = {
-
-  'Authorization': 'Token ',
-
-  'Content-Type': 'application/json’
-
-}
-
-data = json.dumps(
-
-  {
-
-  "version": "db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
-
-   "input": { "prompt": q }
-
-  }
-
-)
-
-r = requests.post('https://api.replicate.com/v1/predictions',data=data,headers=headers)
-
-time.sleep(10)
-
-r = r.json()['urls']['get’]
-
-r = requests.post(r,headers=headers).json()['output']
-
- 
-
-#print image
-
-from PIL import Image
-
-r = Image.open(requests.get(r[0], stream=True).raw)
-
-r
